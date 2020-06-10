@@ -17,6 +17,18 @@ jobs:
       run: curl -L ${BASE_URL}/${VERS}/zola-${VERS}-${ARCH}.tar.gz | tar -xz
     - run: ./zola --version
     - run: ./zola build
+    - name: Netlify Preview
+      uses: nwtgck/actions-netlify@v1.1
+      with:
+        publish-dir: './public'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Deploy from GitHub Actions"
+        enable-pull-request-comment: true
+        enable-commit-comment: true
+        overwrites-pull-request-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
     - name: Deploy
       if: github.ref == 'refs/heads/source'
       uses: crazy-max/ghaction-github-pages@v1
