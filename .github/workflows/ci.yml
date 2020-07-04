@@ -32,5 +32,5 @@ jobs:
     - name: Lint changelog file
       uses: avto-dev/markdown-lint@v1
       with:
-        args: '*.md'
+        args: '**.md'
     
